@@ -2,17 +2,20 @@
                                      README
 ################################################################################
 
-querypdb.py is a pymol program which automatically downloads
+querypdb.py is a pymol script which automatically downloads
 rna structures given specific pdb query parameters and then
 it performs analysis with either the information in the
-structures themselves, or derived from the 3DNA software
+structures themselves, or derived from the 3DNA software.
 
 To run the program just call it from the prompt:
 
 bash-4.0$ ./querypdb.py
 
 And it will download all structures and organize them in their
-correspoding folders.
+correspoding folders, and also run them through 3DNA.
+
+
+
 
 ################################################################################
 ################################################################################
