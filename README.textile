@@ -9,7 +9,7 @@ structures themselves, or derived from the 3DNA software.
 
 h1. Clone the repository
 
-@git clone https://esguerra@github.com/esguerra/querypdb.git
+@git clone https://github.com/esguerra/querypdb.git
 
 h2. Usage
 
