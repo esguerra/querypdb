@@ -7,15 +7,17 @@ rna structures given specific pdb query parameters and then
 it performs analysis with either the information in the
 structures themselves, or derived from the 3DNA software.
 
-h1. Clone the repository
+h2. Setup
 
-@git clone https://github.com/esguerra/querypdb.git
+1. Clone the repository
+
+ @git clone https://github.com/esguerra/querypdb.git@
 
 h2. Usage
 
 To run the program just call it from the prompt:
 
-@bash-4.0$ ./querypdb.py
+ @bash-4.0$ ./querypdb.py@
 
 And it will download all structures and organize them in their
 correspoding folders, and also run them through 3DNA.
