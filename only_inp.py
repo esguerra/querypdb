@@ -11,15 +11,12 @@ url = 'http://www.rcsb.org/pdb/rest/search'
 ##
 #####################################################################
 queryText = """
-<?xml version="1.0" encoding="UTF-8"?>
 <orgPdbCompositeQuery version="1.0">
  <queryRefinement>
   <queryRefinementLevel>0</queryRefinementLevel>
   <orgPdbQuery>
-    <version>head</version>
     <queryType>org.pdb.query.simple.ChainTypeQuery</queryType>
-    <description>Chain Type Search : , Contains RNA=Y</description>
-    <runtimeMilliseconds>161</runtimeMilliseconds>
+    <description>Chain Type: there is a RNA chain</description>
     <containsProtein>?</containsProtein>
     <containsDna>?</containsDna>
     <containsRna>Y</containsRna>
@@ -30,10 +27,8 @@ queryText = """
   <queryRefinementLevel>1</queryRefinementLevel>
   <conjunctionType>and</conjunctionType>
   <orgPdbQuery>
-    <version>head</version>
     <queryType>org.pdb.query.simple.ResolutionQuery</queryType>
-    <description>ResolutionQuery: refine.ls_d_res_high.comparator=between refine.ls_d_res_high.min=0.0 refine.ls_d_res_high.max=3.5 </description>
-    <runtimeMilliseconds>1618</runtimeMilliseconds>
+    <description>Resolution is between 0.0 and 3.5 </description>
     <refine.ls_d_res_high.comparator>between</refine.ls_d_res_high.comparator>
     <refine.ls_d_res_high.min>0.0</refine.ls_d_res_high.min>
     <refine.ls_d_res_high.max>3.5</refine.ls_d_res_high.max>
@@ -59,8 +54,9 @@ else:
 
 
 j=0    
-while j <= len(result)-1:
+while j <= len(result)-2:
     filename = result[j].rstrip().lower()
-    os.system("find_pair -st OnlyNA/%s.onlyNA.pdb Inp/%s.inp" % (filename, filename))    
+    print filename
+#    os.system("find_pair -st OnlyNA/%s.onlyNA.pdb Inp/%s.inp" % (filename, filename))    
     j = j+1
 
