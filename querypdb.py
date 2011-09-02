@@ -57,20 +57,19 @@ queryText = """
 """
 
 #print "query:\n", queryText
-
 print "querying PDB...\n"
 
 req = urllib2.Request(url, data=queryText)
 f = urllib2.urlopen(req)
 result = f.readlines() #Read as a list
-#result = f.read() #Read as a string
+#result = f.read()     #Read as a string
 nstr=len(result)
 #nstr = result.count('\n')  #Use for counting if reading as a string
 
 if result:
     print "Found number of PDB entries:", len(result)    
 else:
-    print "Failed to retrieve results" 
+    print "No data in your query" 
 
 
 ## Create Folders to organize data
