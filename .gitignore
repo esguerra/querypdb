@@ -1,3 +1,9 @@
+Rplot*
+*.Rout
+out.inp
+out.log
+temp*
+.RData
 Xml/
 Inp/
 Pdb/

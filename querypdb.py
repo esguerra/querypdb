@@ -2,7 +2,7 @@
 #####################################################################
 ## File:        querypdb.py
 ## Authors:     Mauricio Esguerra
-## Date:        January 26, 2010
+## Date:        September 2, 2011
 ## Email:       mauricio.esguerra@gmail.com
 ##
 ## Description:
