@@ -2,14 +2,14 @@
 #####################################################################
 ## File:        querypdb.py
 ## Authors:     Mauricio Esguerra
-## Date:        September 2, 2011
+## Date:        February 13, 2012
 ## Email:       mauricio.esguerra@gmail.com
 ##
 ## Description:
-## With this code we wish to do various task in one script:
+## With this script we wish to reduce many tasks to one:
 ## -1- Query the pdb to get a list of RNA structures with resolution
 ##     less than or equal to 3.5 Angstrom.
-## -2- Download said structures.
+## -2- Download such structures.
 ## -3- Run them through 3DNA to get the right number of bases.
 ## -4- Plot Number of Bases vs. Year
 ## -5- Plot Number of RNA Molecules vs. Year
@@ -130,11 +130,15 @@ while i <= len(result)-1:
 j=0    
 while j <= len(result)-1:
     filename = result[j].rstrip().lower()
-    os.system("get_part Pdb/%s.pdb OnlyNA/%s.onlyNA.pdb" % (filename, filename))
-    os.system("find_pair -st OnlyNA/%s.onlyNA.pdb Inp/%s.inp" % (filename, filename))    
+    if not os.path.exists("Inp/"+filename+".inp"): #Only do 3DNA processing if it doesn't exist
+        os.system("get_part Pdb/%s.pdb OnlyNA/%s.onlyNA.pdb" % (filename, filename))
+        os.system("find_pair -st OnlyNA/%s.onlyNA.pdb Inp/%s.inp" % (filename, filename))    
 #    os.system("seq_num %s.onlyNA.pdb" % (filename))
+    else:
+        print "INP file already exists"     
     j = j+1
-os.system("dcmnfile")    
+os.system("dcmnfile")
+
 #grep "date_original" Xml/* | grep -v "nil" | awk -F '>' '{print substr($2,1,4)}'
 #grep "number of bases" Inp/*.inp | awk '{print substr($1,5,4), $2}'
 
