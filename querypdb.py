@@ -13,6 +13,11 @@
 ## -3- Run them through 3DNA to get the right number of bases.
 ## -4- Plot Number of Bases vs. Year
 ## -5- Plot Number of RNA Molecules vs. Year
+##
+## Note:
+## Perhaps this process can never be fully automated since it
+## will need a human checking to see when 3DNA fails due to new
+## modified bases.
 #####################################################################
 
 import urllib, urllib2, os, sys, time, re
@@ -139,8 +144,20 @@ while j <= len(result)-1:
     j = j+1
 os.system("dcmnfile")
 
-#grep "date_original" Xml/* | grep -v "nil" | awk -F '>' '{print substr($2,1,4)}'
-#grep "number of bases" Inp/*.inp | awk '{print substr($1,5,4), $2}'
+orig_pdb  = int(os.system("ls Pdb/ | wc -l"))
+clean_pdb = int(os.system("ls OnlyNA/ | wc -l"))
+inp_pdb   = int(os.system("ls Inp/ | wc -l"))
+#inp_pdb = int("1416")
+
+if orig_pdb==clean_pdb and clean_pdb==inp_pdb:
+    print "All files have been processed by find_pair"
+    print "There is no need of baselist.dat editing"
+else:
+    print "WARNING! You migth need to edit baselist.dat"
+    print "There might be new modified bases in the pdb."    
+    
+#os.system("grep "date_original" Xml/* | grep -v "nil" | awk -F '>' '{print substr($2,1,4)}' > c1")
+#os.system("grep "number of bases" Inp/*.inp | awk '{print substr($1,5,4), $2}' > c2")
 
 # Bug with number of Inps
 # The bug comes from an incomplete baselist.dat file
@@ -151,3 +168,53 @@ os.system("dcmnfile")
 
 
 
+#####################################################################
+## -4-
+## Plot number of bases vs. year
+## 
+##
+## 
+## 
+##
+#####################################################################
+
+import csv
+from numpy import *
+from pylab import *
+
+
+data = recfromcsv('rnaonly.csv', delimiter=',')
+
+gt2000    = []
+for i in range(0,data_arr.shape[0]):
+#    if int(data_arr[i,0])>=int(2000):
+    if int(data[i][0])>=2000:    
+        print data_arr[i]
+
+
+lt2000    = []
+for i in range(0,data_arr.shape[0]):
+    if int(data_arr[i,0])<int(2000):
+        print data_arr[i,]
+        lt2000.append(data_arr[i,])
+
+lt2000 = array(lt2000)        
+
+for i in range(1,3):
+    print " %s_bla" % i
+
+ss1 = data_arr[int(data_arr[:,0]) == int(1990)]
+
+
+
+
+##pylab.plot(year, yearly,'o')
+plot(year, bases,'o')
+#plot(year, yearlyfit,'b-')
+#plot(year, yearly,'b-')
+##title('RNA Structures in PDB per Year')
+xlabel('Year')
+ylabel('Number of Bases')
+
+
+show()
