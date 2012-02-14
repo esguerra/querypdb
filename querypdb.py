@@ -149,7 +149,7 @@ clean_pdb = int(os.system("ls OnlyNA/ | wc -l"))
 inp_pdb   = int(os.system("ls Inp/ | wc -l"))
 #inp_pdb = int("1416")
 
-if orig_pdb==clean_pdb and clean_pdb==inp_pdb:
+if (orig_pdb==clean_pdb and clean_pdb==inp_pdb):
     print "All files have been processed by find_pair"
     print "There is no need of baselist.dat editing"
 else:
@@ -177,44 +177,32 @@ else:
 ## 
 ##
 #####################################################################
-
 import csv
 from numpy import *
 from pylab import *
 
-
 data = recfromcsv('rnaonly.csv', delimiter=',')
+year = data['1994']
+bases = data['24']
 
-gt2000    = []
-for i in range(0,data_arr.shape[0]):
-#    if int(data_arr[i,0])>=int(2000):
-    if int(data[i][0])>=2000:    
-        print data_arr[i]
+seed = min(year)
+end = max(year)
 
+year = []
+yearly = []
+for i in range(seed,end+1):
+     yearly.append(sum(data[data['1994']==i]['24']))
+     year.append(i)     
 
-lt2000    = []
-for i in range(0,data_arr.shape[0]):
-    if int(data_arr[i,0])<int(2000):
-        print data_arr[i,]
-        lt2000.append(data_arr[i,])
-
-lt2000 = array(lt2000)        
-
-for i in range(1,3):
-    print " %s_bla" % i
-
-ss1 = data_arr[int(data_arr[:,0]) == int(1990)]
-
-
-
-
-##pylab.plot(year, yearly,'o')
-plot(year, bases,'o')
-#plot(year, yearlyfit,'b-')
-#plot(year, yearly,'b-')
-##title('RNA Structures in PDB per Year')
+plot(year, yearly,'o')
+title('RNA bases in PDB per Year')
 xlabel('Year')
 ylabel('Number of Bases')
-
+yscale('log')
+grid(True,which="both")
+xlim(1995, 2011)
+rasterized(True)
 
 show()
+
+
