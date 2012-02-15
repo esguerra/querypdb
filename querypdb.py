@@ -2,7 +2,8 @@
 #####################################################################
 ## File:        querypdb.py
 ## Authors:     Mauricio Esguerra
-## Date:        February 13, 2012
+## Date:        February 15, 2012
+## Version:     1.0
 ## Email:       mauricio.esguerra@gmail.com
 ##
 ## Description:
@@ -16,7 +17,7 @@
 ##
 ## Note:
 ## Perhaps this process can never be fully automated since it
-## will need a human checking to see when 3DNA fails due to new
+## needs a human checking to see when 3DNA fails due to new
 ## modified bases.
 #####################################################################
 
@@ -145,28 +146,29 @@ while j <= len(result)-1:
 os.system("dcmnfile")
 
 orig_pdb  = int(os.system("ls Pdb/ | wc -l"))
-clean_pdb = int(os.system("ls OnlyNA/ | wc -l"))
+rna_pdb   = int(os.system("ls OnlyNA/ | wc -l"))
 inp_pdb   = int(os.system("ls Inp/ | wc -l"))
-#inp_pdb = int("1416")
 
-if (orig_pdb==clean_pdb and clean_pdb==inp_pdb):
-    print "All files have been processed by find_pair"
-    print "There is no need of baselist.dat editing"
-else:
-    print "WARNING! You migth need to edit baselist.dat"
-    print "There might be new modified bases in the pdb."    
-    
-#os.system("grep "date_original" Xml/* | grep -v "nil" | awk -F '>' '{print substr($2,1,4)}' > c1")
-#os.system("grep "number of bases" Inp/*.inp | awk '{print substr($1,5,4), $2}' > c2")
+def consistency(x,y,z):
+    if (x==y and y==z):
+        print "All files have been processed by find_pair"
+        print "There is no need of baselist.dat editing"
+    else:
+        print "WARNING! You migth need to edit baselist.dat"
+        print "There might be new modified bases in the pdb."    
 
-# Bug with number of Inps
-# The bug comes from an incomplete baselist.dat file
-# To check which files are failing the find_pair do:
-# ls -l OnlyNA/ | awk {'print substr($8,1,4)'}  > t1
-# ls -l Inp/ | awk {'print substr($8,1,4)'}  > t2
-# diff -y t1 t2 | grep "<"
+consistency(orig_pdb,rna_pdb,inp_pdb)
 
+#def grep(string,list):
+#    expr = re.compile(string)
+#    return filter(expr.search,list)
 
+os.system('grep "date_original" Xml/* | grep -v "nil" > t1')
+os.system("awk -F '>' '{print substr($2,1,4)}' t1 > c1")
+os.system('grep "number of bases" Inp/*.inp > t1')
+os.system("awk '{print substr($1,5,4)\",\"$2}' t1 > c2")
+os.system("paste -d ',' c1 c2 > rnaonly.csv ")
+os.system("rm t1 c1 c2")
 
 #####################################################################
 ## -4-
@@ -178,54 +180,6 @@ else:
 ## non-fully automated fashion.
 ##    
 #####################################################################
-import csv
-from numpy import *
-from pylab import *
 
-# It seems like recfromcsv is analog to pylabs csv2rec
-data = recfromcsv('rnaonly.csv', delimiter=',',
-                  names=['years','pdbid','nofbp'])
-
-begin = min(data['years'])
-end = max(data['years'])
-
-year = []
-nb   = []      # Number of bases per year
-totalnb = []   # Total number of bases in pdb
-for i in range(begin,end+1):
-     nb.append(sum(data[data['years']==i]['nofbp']))
-     totalnb.append(sum(nb))
-     year.append(i)
-
-numrna      = []   # Number of RNA structures per year
-totalnumrna = []   # Total number of RNA structures in PDB
-for i in range(begin,end+1):
-    numrna.append(len(data[data['years']==i]['years']))
-    totalnumrna.append(sum(numrna))
-#len(data[data['years']==2001]['years'])
-
-plot(year, totalnb,'bo')
-title('Number of RNA Bases in PDB vs. Year')
-xlabel('Year')
-ylabel('Total Number of RNA Bases in PDB')
-#yscale('log')
-grid(True,which="both")
-xlim(2000, 2011)
-#rasterized(True)
-savefig("num_of_rna_bases.png", dpi=200, format="png")
-close()
-
-plot(year, totalnumrna,'ro')
-title('Number of RNA Files in PDB vs. Year')
-xlabel('Year')
-ylabel('Total Number of RNA Files in PDB')
-#yscale('log')
-grid(True,which="both")
-xlim(2000, 2011)
-#rasterized(True)
-savefig("num_of_rna_files.png", dpi=200, format="png")
-
-
-#show()
-
-
+import graphs
+graphs.plots(1)
