@@ -12,7 +12,7 @@
 ## -2- Download such structures.
 ## -3- Run them through 3DNA to get the right number of bases.
 ## -4- Plot Number of Bases vs. Year
-## -5- Plot Number of RNA Molecules vs. Year
+##     Plot Number of RNA Molecules vs. Year
 ##
 ## Note:
 ## Perhaps this process can never be fully automated since it
@@ -171,38 +171,61 @@ else:
 #####################################################################
 ## -4-
 ## Plot number of bases vs. year
-## 
-##
-## 
-## 
-##
+## This script automatically generates plots after subsetting the 
+## relevant information.
+## The aim is to produce plots like the ones in Figure 2.1 (page 22 )
+## of the authors thesis which were created in a more manual, 
+## non-fully automated fashion.
+##    
 #####################################################################
 import csv
 from numpy import *
 from pylab import *
 
-data = recfromcsv('rnaonly.csv', delimiter=',')
-year = data['1994']
-bases = data['24']
+# It seems like recfromcsv is analog to pylabs csv2rec
+data = recfromcsv('rnaonly.csv', delimiter=',',
+                  names=['years','pdbid','nofbp'])
 
-seed = min(year)
-end = max(year)
+begin = min(data['years'])
+end = max(data['years'])
 
 year = []
-yearly = []
-for i in range(seed,end+1):
-     yearly.append(sum(data[data['1994']==i]['24']))
-     year.append(i)     
+nb   = []      # Number of bases per year
+totalnb = []   # Total number of bases in pdb
+for i in range(begin,end+1):
+     nb.append(sum(data[data['years']==i]['nofbp']))
+     totalnb.append(sum(nb))
+     year.append(i)
 
-plot(year, yearly,'o')
-title('RNA bases in PDB per Year')
+numrna      = []   # Number of RNA structures per year
+totalnumrna = []   # Total number of RNA structures in PDB
+for i in range(begin,end+1):
+    numrna.append(len(data[data['years']==i]['years']))
+    totalnumrna.append(sum(numrna))
+#len(data[data['years']==2001]['years'])
+
+plot(year, totalnb,'bo')
+title('Number of RNA Bases in PDB vs. Year')
 xlabel('Year')
-ylabel('Number of Bases')
-yscale('log')
+ylabel('Total Number of RNA Bases in PDB')
+#yscale('log')
 grid(True,which="both")
-xlim(1995, 2011)
-rasterized(True)
+xlim(2000, 2011)
+#rasterized(True)
+savefig("num_of_rna_bases.png", dpi=200, format="png")
+close()
 
-show()
+plot(year, totalnumrna,'ro')
+title('Number of RNA Files in PDB vs. Year')
+xlabel('Year')
+ylabel('Total Number of RNA Files in PDB')
+#yscale('log')
+grid(True,which="both")
+xlim(2000, 2011)
+#rasterized(True)
+savefig("num_of_rna_files.png", dpi=200, format="png")
+
+
+#show()
 
 
