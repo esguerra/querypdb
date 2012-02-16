@@ -1,0 +1,18 @@
+- Astronomers plotting with pygplot.
+# Shows also how to deal with data imported
+# as recarrays with recfromcsv
+http://home.fnal.gov/~neilsen/notebook/pythonForDervishUsers.html
+
+- rpy2 is a python package that will allow you to use R from py.
+http://rpy.sourceforge.net/rpy2/doc-2.2/html/introduction.html
+
+- basic matplotlib examples (shows how to set axis).
+http://matplotlib.sourceforge.net/examples/pylab_examples/major_minor_demo1.html
+
+- Simple example of package organization in python.
+http://www.python.org/doc/essays/packages.html
+http://infinitemonkeycorps.net/docs/pph/#id9
+
+- A description of python modules.
+http://www.penzilla.net/tutorials/python/modules/
+
