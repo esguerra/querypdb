@@ -8,7 +8,7 @@
 ## non-fully automated fashion.
 #####################################################################
 
-def plots(n):
+def plots():
      import csv
      from numpy import *
      from pylab import *

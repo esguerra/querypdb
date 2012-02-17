@@ -1,2 +1,2 @@
 import graphs
-graphs.plots(1)
+graphs.plots()

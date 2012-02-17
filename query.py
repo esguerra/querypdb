@@ -74,6 +74,7 @@ def queryrna():
 
     req = urllib2.Request(url, data=queryText)
     f = urllib2.urlopen(req)
+    global result
     result = f.readlines() #Read as a list
     #result = f.read()     #Read as a string
     nstr=len(result)
@@ -124,6 +125,7 @@ def queryrna():
             print "PDB file already exists" 
         i = i+1
 
+        
 #####################################################################
 ## -3-
 ## Running 3DNA on all files and extracting the information
@@ -133,8 +135,9 @@ def queryrna():
 ##       and configured correctly 3DNA in your computer.
 ##
 #####################################################################
-
-    j=0    
+def analysis():
+    import os
+    j=0
     while j <= len(result)-1:
         filename = result[j].rstrip().lower()
         if not os.path.exists("data/Inp/"+filename+".inp"): #Only do 3DNA processing if it doesn't exist
@@ -145,3 +148,37 @@ def queryrna():
             print "INP file already exists"     
         j = j+1
     os.system("dcmnfile")
+    
+
+
+def consistency(x,y,z):
+    if (x==y and y==z):
+        print "All files have been processed by find_pair"
+        print "There is no need of baselist.dat editing"
+    else:
+        print "WARNING! You migth need to edit baselist.dat"
+        print "There might be new modified bases in the pdb."
+
+def getdata():
+    import os
+    os.system('grep "date_original" data/Xml/* | grep -v "nil" > t1')
+    os.system("awk -F '>' '{print substr($2,1,4)}' t1 > c1")
+    os.system('grep "number of bases" data/Inp/*.inp > t1')
+    os.system("awk '{print substr($1,5,4)\",\"$2}' t1 > c2")
+    os.system("paste -d ',' c1 c2 > rnaonly.csv ")
+    os.system("rm t1 c1 c2")
+
+def helices():
+    import os
+#    j=0
+#    while j <= len(result)-1:
+#        filename = result[j].rstrip().lower()
+#        if not os.path.exists("data/Inp/"+filename+".inp"): #Only do 3DNA processing if it doesn't exist
+#            os.system("get_part data/Pdb/%s.pdb OnlyNA/%s.onlyNA.pdb" % (filename, filename))
+#            os.system("find_pair -st data/OnlyNA/%s.onlyNA.pdb data/Inp/%s.inp" % (filename, filename))    
+    #    os.system("seq_num %s.onlyNA.pdb" % (filename))
+ #       else:
+ #           print "INP file already exists"     
+ #       j = j+1
+#    os.system("dcmnfile")
+    

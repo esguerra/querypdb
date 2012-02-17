@@ -22,45 +22,28 @@
 #####################################################################
 import os
 from query import queryrna
+from query import analysis
+from query import consistency
 queryrna()
-
-
+analysis()
 
 orig_pdb  = int(os.system("ls data/Pdb/ | wc -l"))
 rna_pdb   = int(os.system("ls data/OnlyNA/ | wc -l"))
 inp_pdb   = int(os.system("ls data/Inp/ | wc -l"))
 
-def consistency(x,y,z):
-    if (x==y and y==z):
-        print "All files have been processed by find_pair"
-        print "There is no need of baselist.dat editing"
-    else:
-        print "WARNING! You migth need to edit baselist.dat"
-        print "There might be new modified bases in the pdb."    
-
 consistency(orig_pdb,rna_pdb,inp_pdb)
 
-#def grep(string,list):
-#    expr = re.compile(string)
-#    return filter(expr.search,list)
-
-os.system('grep "date_original" data/Xml/* | grep -v "nil" > t1')
-os.system("awk -F '>' '{print substr($2,1,4)}' t1 > c1")
-os.system('grep "number of bases" data/Inp/*.inp > t1')
-os.system("awk '{print substr($1,5,4)\",\"$2}' t1 > c2")
-os.system("paste -d ',' c1 c2 > rnaonly.csv ")
-os.system("rm t1 c1 c2")
+#getdata()
 
 #####################################################################
 ## -4-
 ## Plot number of bases vs. year
-## This script automatically generates plots after subsetting the 
+## This module automatically generates plots after subsetting the 
 ## relevant information.
 ## The aim is to produce plots like the ones in Figure 2.1 (page 22 )
 ## of the authors thesis which were created in a more manual, 
 ## non-fully automated fashion.
-##    
 #####################################################################
 
 import graphs
-graphs.plots(1)
+graphs.plots()
