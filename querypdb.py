@@ -21,17 +21,19 @@
 ## modified bases.
 #####################################################################
 import os
-from query import queryrna
-from query import analysis
-from query import consistency
-queryrna()
-analysis()
+import query
+#from query import analysis
+#from query import consistency
+query.queryrna()
+query.makedirs()
+query.download()
+#analysis()
 
-orig_pdb  = int(os.system("ls data/Pdb/ | wc -l"))
-rna_pdb   = int(os.system("ls data/OnlyNA/ | wc -l"))
-inp_pdb   = int(os.system("ls data/Inp/ | wc -l"))
+#orig_pdb  = int(os.system("ls data/Pdb/ | wc -l"))
+#rna_pdb   = int(os.system("ls data/OnlyNA/ | wc -l"))
+#inp_pdb   = int(os.system("ls data/Inp/ | wc -l"))
 
-consistency(orig_pdb,rna_pdb,inp_pdb)
+#consistency(orig_pdb,rna_pdb,inp_pdb)
 
 #getdata()
 
@@ -45,5 +47,5 @@ consistency(orig_pdb,rna_pdb,inp_pdb)
 ## non-fully automated fashion.
 #####################################################################
 
-import graphs
-graphs.plots()
+#import graphs
+#graphs.plots()

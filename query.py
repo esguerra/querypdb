@@ -28,8 +28,8 @@ def queryrna():
 <orgPdbQuery>
 <version>head</version>
 <queryType>org.pdb.query.simple.ChainTypeQuery</queryType>
-<containsProtein>?</containsProtein>
-<containsDna>?</containsDna>
+<containsProtein>N</containsProtein>
+<containsDna>N</containsDna>
 <containsRna>Y</containsRna>
 <containsHybrid>?</containsHybrid>
 </orgPdbQuery>
@@ -86,7 +86,8 @@ def queryrna():
     else:
         print "No data in your query"
     
-    
+def makedirs():
+    import os
   ## Create Folders to organize data
     if not os.path.exists("data"):
         os.system("mkdir data")
@@ -100,25 +101,28 @@ def queryrna():
         os.system("mkdir data/Inp")
 
 
+def download():
+    import os
     i=0
     while i <= len(result)-1:
         filename = result[i].rstrip().lower()
+        print filename
         if not os.path.exists("data/Pdb/"+filename+".pdb"): #Download ONLY if pdb file does not exist
             pdbname = '%s.pdb.gz' % filename
-            xmlname = '%s.xml.gz' % filename
+#            xmlname = '%s.xml.gz' % filename
             url='ftp://ftp.wwpdb.org/pub/pdb/data/structures/all/pdb/pdb'+filename+".ent.gz"
-            urlxml='ftp://ftp.wwpdb.org/pub/pdb/data/structures/all/XML-noatom/'+filename+"-noatom.xml.gz"
+#            urlxml='ftp://ftp.wwpdb.org/pub/pdb/data/structures/all/XML-noatom/'+filename+"-noatom.xml.gz"
             print "Downloading: "+url
-            print "Downloading: "+urlxml
+#            print "Downloading: "+urlxml
             try:
                 urllib.urlretrieve(url, pdbname)
                 print "Uncompressing ", pdbname
                 os.system("gunzip "+pdbname)
                 os.system("mv "+filename+".pdb data/Pdb/")            
-                urllib.urlretrieve(urlxml, xmlname)
-                print "Uncompressing ", xmlname            
-                os.system("gunzip "+xmlname)
-                os.system("mv "+filename+".xml data/Xml/")                        
+#                urllib.urlretrieve(urlxml, xmlname)
+#                print "Uncompressing ", xmlname
+#                os.system("gunzip "+xmlname)
+#                os.system("mv "+filename+".xml data/Xml/")
             except:
                 print "Error retrieving ", url
         else:
