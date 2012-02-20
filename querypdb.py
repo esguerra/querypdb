@@ -27,6 +27,7 @@ import query
 query.queryrna()
 query.makedirs()
 query.download()
+query.helices()
 #analysis()
 
 #orig_pdb  = int(os.system("ls data/Pdb/ | wc -l"))

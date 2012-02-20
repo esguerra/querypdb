@@ -11,7 +11,6 @@
 #####################################################################
 
 def queryrna():
-    import urllib
     import urllib2
     import os
     import sys
@@ -103,6 +102,7 @@ def makedirs():
 
 def download():
     import os
+    import urllib
     i=0
     while i <= len(result)-1:
         filename = result[i].rstrip().lower()
@@ -145,7 +145,7 @@ def analysis():
     while j <= len(result)-1:
         filename = result[j].rstrip().lower()
         if not os.path.exists("data/Inp/"+filename+".inp"): #Only do 3DNA processing if it doesn't exist
-            os.system("get_part data/Pdb/%s.pdb OnlyNA/%s.onlyNA.pdb" % (filename, filename))
+            os.system("get_part data/Pdb/%s.pdb data/OnlyNA/%s.onlyNA.pdb" % (filename, filename))
             os.system("find_pair -st data/OnlyNA/%s.onlyNA.pdb data/Inp/%s.inp" % (filename, filename))    
     #    os.system("seq_num %s.onlyNA.pdb" % (filename))
         else:
@@ -174,15 +174,15 @@ def getdata():
 
 def helices():
     import os
-#    j=0
-#    while j <= len(result)-1:
-#        filename = result[j].rstrip().lower()
-#        if not os.path.exists("data/Inp/"+filename+".inp"): #Only do 3DNA processing if it doesn't exist
-#            os.system("get_part data/Pdb/%s.pdb OnlyNA/%s.onlyNA.pdb" % (filename, filename))
-#            os.system("find_pair -st data/OnlyNA/%s.onlyNA.pdb data/Inp/%s.inp" % (filename, filename))    
+    j=0
+    while j <= len(result)-1:
+        filename = result[j].rstrip().lower()
+        if not os.path.exists("data/Inp/"+filename+".inp"): #Only do 3DNA processing if it doesn't exist
+            os.system("get_part data/Pdb/%s.pdb data/OnlyNA/%s.onlyNA.pdb" % (filename, filename))
+            os.system("find_pair data/OnlyNA/%s.onlyNA.pdb data/Inp/%s.inp" % (filename, filename))    
     #    os.system("seq_num %s.onlyNA.pdb" % (filename))
- #       else:
- #           print "INP file already exists"     
- #       j = j+1
-#    os.system("dcmnfile")
+        else:
+            print "INP file already exists"     
+        j = j+1
+    os.system("dcmnfile")
     
