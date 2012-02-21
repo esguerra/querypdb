@@ -30,7 +30,7 @@ def queryrna():
 <containsProtein>N</containsProtein>
 <containsDna>N</containsDna>
 <containsRna>Y</containsRna>
-<containsHybrid>?</containsHybrid>
+<containsHybrid>N</containsHybrid>
 </orgPdbQuery>
 </queryRefinement>
 
@@ -98,6 +98,8 @@ def makedirs():
         os.system("mkdir data/OnlyNA")
     if not os.path.exists("data/Inp"):
         os.system("mkdir data/Inp")
+    if not os.path.exists("helices"):
+        os.system("mkdir helices")
 
 
 def download():
@@ -179,10 +181,11 @@ def helices():
         filename = result[j].rstrip().lower()
         if not os.path.exists("data/Inp/"+filename+".inp"): #Only do 3DNA processing if it doesn't exist
             os.system("get_part data/Pdb/%s.pdb data/OnlyNA/%s.onlyNA.pdb" % (filename, filename))
-            os.system("find_pair data/OnlyNA/%s.onlyNA.pdb data/Inp/%s.inp" % (filename, filename))    
-    #    os.system("seq_num %s.onlyNA.pdb" % (filename))
+            os.system("find_pair data/OnlyNA/%s.onlyNA.pdb data/Inp/%s.inp" % (filename, filename))
+        #    os.system("seq_num %s.onlyNA.pdb" % (filename))
         else:
             print "INP file already exists"     
         j = j+1
     os.system("dcmnfile")
-    
+    os.system('grep " helices " data/Inp/* | awk \'{print $6}\' > helices/size.dat')
+
