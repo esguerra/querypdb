@@ -48,5 +48,5 @@ query.helices()
 ## non-fully automated fashion.
 #####################################################################
 
-#import graphs
-#graphs.Plots.hel_stats()
+import graphs
+graphs.Plots.hel_stats()

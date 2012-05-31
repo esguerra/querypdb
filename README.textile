@@ -21,11 +21,32 @@ To run the program just call it from the prompt:
 And it will download all structures and organize them in their
 correspoding folders, and also run them through 3DNA.
 
-Note: The downloaded information can use a good amount of disk space.
+h2. Examples
+
+To perform common mainteinance tasks which do not necesarily have to go through
+the more costly step of querying the whole online database some scripts are
+provided, for example, the toquery.py and tograph.py scripts.
+
+With the toquery.py script we can check if the numbers of downloaded pdb
+structures, find_pair output files, and striped of protein onlyrna files,
+match in their counts using the consistency module.
+
+python toquery.py
+
+Or to produce only the graphs
+
+python tographs.py
+
+The scripts are easy to modify so that the user can easily use the objects and
+modules that constitute the query and graph packages.
+
+
+CAUTION: THE DOWNLOADED INFORMATION CAN USE A LARGE AMOUNT OF DISK SPACE.
+
 
 Thanks for your interest!
 
-
+Mauricio
 
 ################################################################################
 ################################################################################

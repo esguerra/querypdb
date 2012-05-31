@@ -135,8 +135,8 @@ def download():
 ## Running 3DNA on all files and extracting the information
 ## we need.
 ##
-## Note: The following commands assume that you have installed
-##       and configured correctly 3DNA in your computer.
+## Note: The following commands assumes you've installed
+##       and configured 3DNA in your computer.
 ##
 #####################################################################
 def analysis():
@@ -154,8 +154,14 @@ def analysis():
     os.system("dcmnfile")
     
 
+#####################################################################
+## -4-
+##  Module to check that all pdb files have gone through find_pair
+##
+#####################################################################
 
 def consistency(x,y,z):
+    
     if (x==y and y==z):
         print "All files have been processed by find_pair"
         print "There is no need of baselist.dat editing"
