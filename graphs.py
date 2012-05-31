@@ -1,14 +1,15 @@
-#####################################################################
-## graphs.py
-## Date: February 15, 2012
-## This module automatically generates plots after subsetting the 
-## relevant information.
-## The aim is to produce plots like the ones in Figure 2.1 (page 22 )
-## of the authors thesis which were created in a more manual, 
-## non-fully automated fashion.
-#####################################################################
-
 class Plots(object):
+     """
+     #####################################################################
+     ## graphs.py
+     ## Date: February 15, 2012
+     ## This module automatically generates plots after subsetting the 
+     ## relevant information.
+     ## The aim is to produce plots like the ones in Figure 2.1 (page 22 )
+     ## of the authors thesis which were created in a more manual, 
+     ## non-fully automated fashion.
+     #####################################################################
+     """
      @staticmethod
      def pdb_stats():
           import csv

@@ -64,7 +64,6 @@ def queryrna():
 </orgPdbQuery>
 </queryRefinement>
 -->
-
 </orgPdbCompositeQuery>
     """
 
@@ -100,7 +99,6 @@ def makedirs():
         os.system("mkdir data/Inp")
     if not os.path.exists("helices"):
         os.system("mkdir helices")
-
 
 def download():
     import os

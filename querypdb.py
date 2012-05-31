@@ -49,4 +49,4 @@ query.helices()
 #####################################################################
 
 #import graphs
-#graphs.plots()
+#graphs.Plots.hel_stats()
