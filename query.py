@@ -171,12 +171,18 @@ def consistency(x,y,z):
 
 def getdata():
     import os
-    os.system('grep "date_original" data/Xml/* | grep -v "nil" > t1')
-    os.system("awk -F '>' '{print substr($2,1,4)}' t1 > c1")
-    os.system('grep "number of bases" data/Inp/*.inp > t1')
-    os.system("awk '{print substr($1,5,4)\",\"$2}' t1 > c2")
+#    os.system('grep "date_original" data/Xml/* | grep -v "nil" > t1')
+#    os.system("awk -F '>' '{print substr($2,1,4)}' t1 > c1")
+#    os.system('grep "number of base-pairs" data/Inp/*.inp > t1')
+#    os.system("awk '{print substr($1,5,4)\",\"$2}' t1 > c2")
+#    os.system("paste -d ',' c1 c2 > rnaonly.csv ")
+    os.system("grep \"REVDAT\" data/Pdb/*.pdb | awk '{ if ($5 ~ /^0/) print substr($3,8,2)\",\"substr($4,0,4)}' > t1")
+    os.system("awk -F ',' '{if ($1 >= 70) print \"19\"$1\",\"$2; else print \"20\"$1\",\"$2}' t1 > c1")
+    os.system("grep \"number of base-pairs\" data/Inp/*.inp | awk '{print $2}' > c2")
     os.system("paste -d ',' c1 c2 > rnaonly.csv ")
     os.system("rm t1 c1 c2")
+    # IT's ONLY MISSING adding 19XX and 20XX in years
+    #
 
 def helices():
     import os
