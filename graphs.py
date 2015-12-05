@@ -1,22 +1,31 @@
+#!/usr/bin/env python
+"""
+================================================================================
+ File:        graphs.py
+ Authors:     Mauricio Esguerra
+ Date:        February 15, 2012
+ Email:       mauricio.esguerra@gmail.com
+
+Description:
+This module automatically generates plots after subsetting the relevant
+information.
+The aim is to produce plots like the ones in Figure 2.1 (page 22 ) of the
+authors thesis which were created in a more manual, non-fully automated fashion.
+
+================================================================================
+"""
+import csv
+from numpy import *
+from pylab import *
+from matplotlib import *
+
 class Plots(object):
      """
-     #####################################################################
-     ## graphs.py
-     ## Date: February 15, 2012
-     ## This module automatically generates plots after subsetting the 
-     ## relevant information.
-     ## The aim is to produce plots like the ones in Figure 2.1 (page 22 )
-     ## of the authors thesis which were created in a more manual, 
-     ## non-fully automated fashion.
-     #####################################################################
+     Class to plot statistical data parsed from the output of x3dna on a set
+     of select downloaded pdb files from the PDB.
      """
      @staticmethod
      def pdb_stats():
-          import csv
-          from numpy import *
-          from pylab import *
-          from matplotlib import *
-
      # It seems like recfromcsv is analog to pylabs csv2rec
           data = recfromcsv('rnaonly.csv', delimiter=',',
                             names=['years','pdbid','nofbp'])
@@ -63,7 +72,7 @@ class Plots(object):
           #xticks([2000, 2002, 2004, 2006, 2008, 2010, 2012], rotation=0 )
           yscale('log')
           grid(True,which="both")
-          xlim(1970, 2012)
+          xlim(1970, 2014)
           
           subplot(1,2,2)
           plot(year, totalnumrna,'ro')     
@@ -73,7 +82,7 @@ class Plots(object):
      #xticks(year)
           yscale('log')
           grid(True,which="both")
-          xlim(1970, 2012)
+          xlim(1970, 2014)
           savefig("graphs/num_of_rna_files.png", dpi=300, format="png")
      #     show()
           close()
@@ -145,7 +154,7 @@ class Plots(object):
          ax.plot(year, yearly_protein,'o', color='green')
          leg3=ax.plot(year, yearly_protein,'b-', color='green')
          ax.grid(True,which="both")
-         ax.set_xlim(1995, 2011)
+         ax.set_xlim(1995, 2014)
          ax.set_rasterized(True)
          ax.set_xlabel('Year')
          ax.set_ylabel('Number of Yearly Added Structures')    
@@ -154,3 +163,69 @@ class Plots(object):
          
          plt.savefig("graphs/rnagraph.png")
          close()
+         
+     @staticmethod
+     def rnadimerplot():
+          import os
+          homies = '/Users/esguerra'
+          static = '/development/python/querypdb'
+          os.environ['HOME']=homies+static
+          from numpy import *
+          import csv
+          from matplotlib.figure import Figure
+      
+          rna     = open(homies+static+'/rnaonly.csv', 'r');
+          dna     = open(homies+static+'/dnaonly.csv', 'r');
+          protein = open(homies+static+'/proteins.csv','r');
+      
+          readrna = csv.reader(rna)
+          rnadata = []
+          for row in readrna:
+               rnadata.append(row)
+      
+               rna_arr = array(rnadata)
+      
+          readdna = csv.reader(dna)
+          dnadata = []
+          for row in readdna:
+               dnadata.append(row)
+      
+               dna_arr = array(dnadata)
+      
+          readprotein = csv.reader(protein)
+          proteindata = []
+          for row in readprotein:
+               proteindata.append(row)
+      
+          protein_arr = array(proteindata)
+      
+      
+          fig=Figure()
+          ax=fig.add_subplot(111)
+          year = rna_arr[1:,0]
+          yearly_rna = rna_arr[1:,1]
+          yearly_dna = dna_arr[1:,1]
+          yearly_protein = protein_arr[1:,1]
+     #    yearlyfit = polyfit(year, yearly, 1)
+          ax.set_yscale('log')
+          ax.plot(year, yearly_rna,'o', color='red')
+          leg1=ax.plot(year, yearly_rna,'b-', color='red')
+          ax.plot(year, yearly_dna,'o', color='blue')
+          leg2=ax.plot(year, yearly_dna,'b-', color='blue')
+          ax.plot(year, yearly_protein,'o', color='green')
+          leg3=ax.plot(year, yearly_protein,'b-', color='green')
+          ax.grid(True,which="both")
+          ax.set_xlim(1995, 2014)
+          ax.set_rasterized(True)
+          ax.set_xlabel('Year')
+          ax.set_ylabel('Number of Yearly Added Structures')
+          ax.set_title('Structures in PDB per Year')
+          ax.legend((leg1,leg2,leg3),('RNA','DNA','Protein'), loc=4)
+      
+          plt.savefig("graphs/aswww.png")
+          close()
+
+
+Plots.pdb_stats()
+#Plots.plot()
+#Plots.hel_stats()

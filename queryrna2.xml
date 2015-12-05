@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<orgPdbCompositeQuery version="1.0">
+<queryRefinement>
+<queryRefinementLevel>1</queryRefinementLevel>
+<conjunctionType>and</conjunctionType>
+<orgPdbQuery>
+<version>head</version>
+<queryType>org.pdb.query.simple.ReleaseDateQuery</queryType>
+<database_PDB_rev.date.comparator>between</database_PDB_rev.date.comparator>
+<database_PDB_rev.date.min>2010-01-01</database_PDB_rev.date.min>
+<database_PDB_rev.date.max>2011-01-01</database_PDB_rev.date.max>
+<database_PDB_rev.mod_type.comparator><![CDATA[<]]></database_PDB_rev.mod_type.comparator>
+<database_PDB_rev.mod_type.value>1</database_PDB_rev.mod_type.value>
+</orgPdbQuery>
+</queryRefinement>
+</orgPdbCompositeQuery>

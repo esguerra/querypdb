@@ -9,3 +9,6 @@ Inp/
 Pdb/
 OnlyNA/
 *.pyc
+.idea
+.matplotlib
+data/
