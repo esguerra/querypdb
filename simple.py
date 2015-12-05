@@ -1,15 +1,14 @@
 #!/usr/bin/python
-#####################################################################
-## File:        simple.py
-## Authors:     Mauricio Esguerra
-## Date:        January 28, 2010
-## Email:       mauricio.esguerra@gmail.com
-##
-## Description:
-## This is a simple example script for querying directly to the
-## statically served xml's in the PDB.
-#####################################################################
+"""
+File:        simple.py
+Authors:     Mauricio Esguerra
+Date:        January 28, 2010
+Email:       mauricio.esguerra@gmail.com
 
+Description:
+This is a simple example script for querying directly to the statically served
+xml's in the PDB.
+"""
 import urllib, urllib2, os, sys, time, re
 
 url = 'http://www.rcsb.org/pdb/files/1ehz.xml'
