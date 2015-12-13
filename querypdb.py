@@ -37,13 +37,15 @@ inp_pdb = subprocess.check_output('ls data/Inp/ | wc -l', shell=True)
 print "inp pdbs = %d" % int(inp_pdb)
 query.consistency(orig_pdb, rna_pdb, inp_pdb)
 
-query.makedirs()
+# query.makedirs()
 
-query.download()
+# query.download()
 
-# query.analysis()
-# query.helices()
-# query.getdata()
+query.analysis()
+
+query.helices()
+
+query.getdata()
 
 #####################################################################
 # -4-

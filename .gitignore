@@ -12,3 +12,9 @@ OnlyNA/
 .idea
 .matplotlib
 data/
+helices/size.dat
+rnaonly.csv
+numbases
+pdbid
+xmldate
+year
